@@ -34,17 +34,29 @@ void loop() {
   
   float h = dht.readHumidity();
   float t = dht.readTemperature();
-//  float f = dht.convertCtoF(t);
+  float f = dht.convertCtoF(t);
 
-  if (isnan(h) || isnan(t) /*|| isnan(f)*/) {
+  bool isSwitchOn = digitalRead(SWITCH_PIN) == 1;
+  String tempFormat = "C";
+
+  if (isnan(h) || isnan(t) || isnan(f)) {
     Serial.println("Failed to read from DHT sensor!");
     return;
   }
 
+  // DO NOT REMOVE THIS PRINTLN
+  // THE SWITCH WILL STOP WORKING IF IT ISN'T HERE
+  // NO CLUE WHY
+  Serial.println(digitalRead(SWITCH_PIN));
 
   char fToS[2];
   char strBuf[16];
   dtostrf(t, 2, 0, fToS);
+
+  if(isSwitchOn){
+    dtostrf(f, 2, 0, fToS);
+    tempFormat = "F";
+  }
 
   sprintf(strBuf, "%-8s : %-2s ", "Temp", fToS);
 
@@ -52,7 +64,7 @@ void loop() {
   
   lcd.print(strBuf);
   lcd.write(7);
-  lcd.print("C");
+  lcd.print(tempFormat);
 
   dtostrf(h, 2, 0, fToS);
   sprintf(strBuf, "%-8s : %-2s RH", "Humidity", fToS);
