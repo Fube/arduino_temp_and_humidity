@@ -2,7 +2,7 @@
 
 ### Fritzing Sketch
 
-![Fritzing Sketch](https://github.com/Fube/arduino_temp_and_humidity/blob/master/Temp and Humidity.png "Fritzing Sketch")
+![Fritzing Sketch](https://github.com/Fube/arduino_temp_and_humidity/blob/master/Temp%20and%20Humidity.png "Fritzing Sketch")
 
 <hr/>
 
